@@ -1,47 +1,29 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+import MainScreen from "./components/MainScreen.vue";
+import InteractScreen from "./components/InteractiveScreen.vue";
+export default {
+  data() {
+    return {
+      showMainScreen: true,
+      showInteractScreen: false
+    };
+  },
+  components: {
+    MainScreen,
+    InteractScreen
+  },
+  methods: {
+    onHandle(block) {
+      this.showInteractScreen = true;
+      this.showMainScreen = false;
+      console.log(block);
+    }
+  }
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <main-screen v-if="showMainScreen" @onStart="onHandle($event)"></main-screen>
+  <interact-screen v-if="showInteractScreen"></interact-screen>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
